@@ -1,0 +1,36 @@
+using UnityEngine;
+
+public class MoveUpAndDown : MonoBehaviour
+{
+    public float moveDistance = 1.0f; // The distance to move up and down
+    public float moveSpeed = 1.0f; // The speed at which to move up and down
+
+    private bool movingUp = true; // Flag to track whether the game object is moving up or down
+    private Vector3 startingPosition; // The starting position of the game object
+
+    void Start()
+    {
+        // Save the starting position of the game object
+        startingPosition = transform.position;
+    }
+
+    void Update()
+    {
+        // Calculate the new position of the game object
+        float y = movingUp ? startingPosition.y + moveDistance : startingPosition.y - moveDistance;
+        Vector3 newPosition = new Vector3(startingPosition.x, y, startingPosition.z);
+
+        // Move the game object to the new position
+        transform.position = Vector3.Lerp(transform.position, newPosition, moveSpeed * Time.deltaTime);
+
+        // Check if the game object has reached the top or bottom of its movement range
+        if (movingUp && transform.position.y >= startingPosition.y + moveDistance)
+        {
+            movingUp = false;
+        }
+        else if (!movingUp && transform.position.y <= startingPosition.y - moveDistance)
+        {
+            movingUp = true;
+        }
+    }
+}

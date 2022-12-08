@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BubbleGeneratorScript : MonoBehaviour
+{
+    public GameObject cloud;
+    public float spawnRate = 3;
+    public float timer = 10;
+    public float heightOffset = 10;
+    public float widthOffset = 10;
+    // Start is called before the first frame update
+    void Start()
+    {
+        spawnCloud();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        spawnCloud();
+    }
+
+    void spawnCloud()
+    {
+        float lowestPoint = transform.position.y - heightOffset;
+        float highestPoint = transform.position.y + heightOffset;
+        float furthestPointRight = transform.position.x + widthOffset;
+        float furthestPointLeft = transform.position.x - widthOffset;
+        if (timer < spawnRate)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            Instantiate(cloud, new Vector3(Random.Range(furthestPointLeft, furthestPointRight), Random.Range(lowestPoint, highestPoint), 0), transform.rotation);
+            timer = 0;
+        }
+    }
+}

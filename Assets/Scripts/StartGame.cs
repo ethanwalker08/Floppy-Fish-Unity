@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class StartGame : MonoBehaviour
+{
+    public string sceneName = "Game"; // The name of the scene to load
+
+    // Reference to the button component
+    private Button button;
+
+    void Start()
+    {
+        // Get a reference to the button component
+        button = GetComponent<Button>();
+
+        // Add a listener for the button's onClick event
+        button.onClick.AddListener(ChangeScene);
+    }
+
+    void ChangeScene()
+    {
+        // Check if the scene exists
+        if (SceneManager.GetSceneByName(sceneName) != null)
+        {
+            // Load the specified scene
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+}
